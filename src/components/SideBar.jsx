@@ -1,18 +1,37 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import { asideLinks } from '../constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../store/slices/userSlice'
+import BaseButton from './UI/BaseButton'
+import { useEffect } from 'react'
+import { hasPermission } from '../utils'
 
 const SideBar = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { user, updateLoading } = useSelector(state => state.users)
+
+    const userLogout = async () => {
+        const response = await dispatch(logout())
+        if (logout.fulfilled.match(response)) navigate('/login')
+    }
+    
     return (
-        <aside className='bg-white p-8 px-4 rounded-3xl flex flex-col gap-6 shadow-lg 2xl:w-1/6 xl:w-1/5 lg:w-1/3 max-lg:hidden'>
+        <aside className='aside bg-white relative p-8 px-4 rounded-3xl flex flex-col gap-6 shadow-lg 2xl:w-1/6 max-lg:h-full xl:w-1/5 lg:w-1/3 max-lg:hidden'>
+            <button className='w-10 h-10 place-items-center max-lg:grid hidden rounded-full border border-gray-400 text-gray-400 absolute top-4 left-4'>
+                <Icon icon="material-symbols:close-rounded" fontSize={26} className='' />
+            </button>
             <img src="/logo.svg" className='w-2/4 mx-auto' alt="Logo Image" />
             {
                 asideLinks.map((asideLink, index) => (
+                    hasPermission(user, asideLink.permissions) &&
                     <div key={index}>
                         <span className='text-paragrah-color block mb-3 text-xs'>{asideLink.title}</span>
                         <ul className='flex flex-col gap-2'>
                             {
                                 asideLink.links.map((link, index) => (
+                                    hasPermission(user, link.permission) &&
                                     <li key={index}>
                                         <NavLink to={link.path} className="flex items-center gap-3 transition-all ease-out p-2 px-4 rounded-lg hover:bg-primary-50 hover:text-primary-400">
                                             <Icon icon={link.icon} fontSize={24} />
@@ -30,10 +49,13 @@ const SideBar = () => {
                     <Icon icon='fluent:settings-32-regular' fontSize={24} />
                     <span className='text-sm'>الاعدادات</span>
                 </NavLink>
-                <button className="flex items-center gap-3 transition-all w-full ease-out p-2 px-4 rounded-lg hover:bg-rose-50 text-rose-400">
-                    <Icon icon="solar:logout-3-outline" fontSize={24} />
-                    <span className='text-sm'>تسجيل الخروج</span>
-                </button>
+                <BaseButton
+                    isLoading={updateLoading}
+                    onClick={userLogout}
+                    title="تسجيل الخروج"
+                    icon={"solar:logout-3-outline"}
+                    className={"!text-rose-400 !justify-start !bg-white hover:!bg-rose-50"}
+                />
             </div>
         </aside>
     )

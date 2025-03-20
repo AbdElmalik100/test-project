@@ -33,8 +33,9 @@
 
   --font-cairo: "Cairo", sans-serif;
 }
+
 /* For Container */
-/* @apply mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 */ 
+/* @apply mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 */
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem
@@ -52,15 +53,112 @@ body {
 button {
   @apply cursor-pointer
 }
+
 input {
   @apply rounded-lg border border-gray-200 p-2.5 px-5 outline-none focus:border-primary-400 transition-all ease-out [&.error]:border-rose-500
 }
+
 select {
-  @apply bg-[#FCFDFD] p-1 px-4 rounded-lg border border-gray-200 outline-none
+  @apply bg-[#FCFDFD] p-1 px-4 rounded-lg border border-gray-200 outline-none transition-all ease-out cursor-pointer hover:bg-gray-100
 }
+
 .main-btn {
   @apply rounded-lg p-2 px-4 flex justify-center items-center gap-2 bg-primary-400 text-white transition-all ease-out [&:not(:disabled)]:hover:bg-primary-300 disabled:opacity-75 disabled:cursor-default
 }
+
 a.active {
   @apply bg-primary-50 text-primary-400
 }
+
+.overlay {
+  @apply bg-black/50 fixed top-0 left-0 z-20 w-full h-full transition-all ease-out
+}
+
+.tab-btn {
+  @apply rounded-lg p-2 transition-all ease-out [&.active-tab]:bg-primary-400 [&.active-tab]:text-white text-black bg-white hover:bg-primary-400 hover:text-white
+}
+
+
+
+
+
+
+/* Ant Design CSS Component  */
+
+/* OTP Input  */
+.ant-otp .ant-input {
+  @apply border w-14 h-14 font-bold text-xl font-cairo border-gray-200 outline-none focus:border-primary-400 shadow-none
+}
+
+
+/* Table  */
+.ant-table-cell {
+  @apply !bg-white !rounded-none
+}
+
+
+/* Pagination  */
+.ant-pagination .ant-pagination-item-active {
+  @apply border-primary-400 !text-primary-400 hover:!border-primary-400 
+}
+.ant-pagination .ant-pagination-item-active a {
+  @apply !text-primary-400
+}
+.ant-pagination .ant-pagination-item-link {
+  @apply !grid !place-items-center rotate-180
+}
+
+
+/* Checkbox  */
+.ant-checkbox .ant-checkbox-inner {
+  @apply w-6 h-6
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  @apply bg-primary-400 border-primary-400
+}
+.ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-inner {
+  @apply !border-primary-300
+}
+.ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner {
+  @apply bg-primary-300 border-primary-300
+}
+.ant-checkbox-indeterminate .ant-checkbox-inner:after {
+  @apply bg-primary-400
+}
+
+
+/* Select Box  */
+.ant-select-outlined .ant-select-selector {
+  @apply !border-gray-200
+}
+.ant-select-focused.ant-select-outlined .ant-select-selector {
+  @apply !shadow-none
+}
+
+
+/* Breadcrumb */
+.ant-breadcrumb a.active {
+  @apply !bg-[unset] !text-black
+}
+.ant-breadcrumb a:hover {
+  @apply !bg-[unset] !text-primary-400
+}
+
+/* Switch Button */
+.ant-switch.ant-switch-checked {
+  @apply !bg-green-500
+}
+
+
+/* Phone Input With Country Code */
+.phone-input {
+  direction: ltr;
+}
+.phone-input input {
+  @apply !w-full !p-2.5 !px-14 !shadow-none focus:!border-primary-400 !border-gray-200
+}
+.phone-input .flag-dropdown .selected-flag  {
+  @apply before:!shadow-none before:!border-none
+}
+
+

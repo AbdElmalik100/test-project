@@ -2,14 +2,16 @@ import { useForm } from "react-hook-form"
 import AuthHeader from "../../components/AuthSections/AuthHeader"
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
-import { toast } from "sonner"
 import { useDispatch, useSelector } from "react-redux"
 import BaseButton from "../../components/UI/BaseButton"
+import { resetPassword } from "../../store/slices/userSlice"
+import { useNavigate } from "react-router"
 
 
 const ResetPassword = () => {
     const dispatch = useDispatch()
     const { loading } = useSelector(state => state.users)
+    const navigate = useNavigate()
 
     const validationSchema = yup.object({
         email: yup
@@ -30,9 +32,9 @@ const ResetPassword = () => {
         }
     })
 
-    const onSuccess = (data) => {
-        console.log(data)
-        toast.success("تم ارسال الرساله")
+    const onSuccess = async (data) => {
+        const response = await dispatch(resetPassword(data))
+        if (resetPassword.fulfilled.match(response)) navigate(`/set-otp?email=${data.email}`)
     }
 
     const onSubmit = handleSubmit(onSuccess)

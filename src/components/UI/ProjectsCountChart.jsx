@@ -8,9 +8,17 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { chartMonthes } from '../../constants';
+import { chartMonthesLabels, yearlyOptions } from '../../constants';
+import { Select } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjectsCount } from '../../store/slices/reportsSlice';
+import { useSearchParams } from 'react-router';
 
 const ProjectsCountChart = () => {
+    const dispatch = useDispatch()
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { projectsCount } = useSelector(state => state.reports)
+    
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -18,12 +26,13 @@ const ProjectsCountChart = () => {
         Title,
         Tooltip,
         Legend
-    );
+    );    
+    
     const data = {
-        labels: chartMonthes,
+        labels: chartMonthesLabels,
         datasets: [
             {
-                data: chartMonthes.map(el => Math.ceil(Math.random() * 1000)),
+                data: projectsCount.map(el => el.project_count),
                 backgroundColor: [
                     '#95A4FC',
                     '#BAEDBD',
@@ -54,14 +63,21 @@ const ProjectsCountChart = () => {
         }
     }
     return (
-        <div className="col-span-4 bg-white p-8 rounded-lg shadow-md max-lg:col-span-6">
+        <div className="col-span-6 bg-white p-8 rounded-lg shadow-md ">
             <div className='flex items-center justify-between gap-4'>
                 <h3 className="text-xl font-bold">عدد المشاريع</h3>
-                <select name="quarter">
-                    <option value="weekly">اسبوعي</option>
-                    <option value="monthly" selected>شهري</option>
-                    <option value="yearly">سنوي</option>
-                </select>
+                <Select
+                    value={searchParams.get("year") ? searchParams.get("year") : yearlyOptions[0]}
+                    size='large'
+                    style={{
+                        width: 120,
+                    }}
+                    onChange={value => {
+                        setSearchParams({year: value})
+                        dispatch(getProjectsCount(value))
+                    }}
+                    options={yearlyOptions}
+                />
             </div>
             <div className="chart-wrapper mt-4 flex items-start gap-3 relative">
                 <Bar data={data} options={options} width={300} height={300} />

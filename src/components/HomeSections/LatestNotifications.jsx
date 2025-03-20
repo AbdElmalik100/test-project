@@ -20,7 +20,7 @@ const LatestNotifications = () => {
                         </div>
                     ))
                 }
-                <NavLink className="flex text-sm mt-auto justify-center items-center gap-2 text-paragrah-color transition-all ease-out hover:text-primary-400" to='/notifications'>
+                <NavLink className="flex text-sm pt-4 mt-auto justify-center items-center gap-2 text-paragrah-color transition-all ease-out hover:text-primary-400" to='/notifications'>
                     <span>عرض الكل</span>
                     <Icon icon="iconamoon:arrow-left-2-light" fontSize={22} />
                 </NavLink>

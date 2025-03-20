@@ -1,4 +1,4 @@
-import { NavLink } from "react-router"
+import { NavLink, useNavigate } from "react-router"
 import { Icon } from "@iconify/react";
 import AuthHeader from "../../components/AuthSections/AuthHeader";
 import * as yup from 'yup'
@@ -7,10 +7,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/slices/userSlice";
 import BaseButton from "../../components/UI/BaseButton";
+import { useState } from "react";
 
 const Login = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { user, loading } = useSelector(state => state.users)
+    const [rememberMe, setRememberMe] = useState(false)
 
     const validationSchema = yup.object({
         email: yup.string().required("هذا الحقل لا يجب ان يكون فارغا").email("البريد الالكتروني غير صحيح"),
@@ -24,9 +27,10 @@ const Login = () => {
             password: ""
         }
     })
-
-    const onSuccess = (data) => {
-        dispatch(login(data))
+    
+    const onSuccess = async (data) => {
+        const response = await dispatch(login({ data, rememberMe }))
+        if (login.fulfilled.match(response)) navigate("/")        
     }
 
     const onSubmit = handleSubmit(onSuccess)
@@ -49,7 +53,7 @@ const Login = () => {
                     </div>
                     <div className=" flex items-center justify-between gap-4">
                         <label className="remember-me flex items-center gap-2 cursor-pointer group">
-                            <input type="checkbox" name="remember" className="hidden" />
+                            <input type="checkbox" name="remember" className="hidden" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
                             <div className="w-6 h-6 transition-all ease-out rounded border-2 border-gray-200 group-has-checked:border-primary-400 flex justify-center items-center">
                                 <Icon
                                     icon="material-symbols:check-rounded"

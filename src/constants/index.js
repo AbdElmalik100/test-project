@@ -1,74 +1,85 @@
 export const topStats = {
     projects: {
         icon: "ph:folder-duotone",
-        total: 178,
         title: "عدد المشاريع"
     },
     supervisors: {
         icon: "ph:user-circle-light",
-        total: 178,
         title: "عدد المشرفين"
     },
-    missions: {
+    tasks: {
         icon: "ph:file",
-        total: 178,
         title: "عدد المهام"
     },
     employees: {
         icon: "ph:user-circle-light",
-        total: 178,
         title: "عدد الموظفين"
     },
 }
 
-export const monthes = [
+export const monthesOptions = [
     {
-        name: "يناير",
-        value: "jan",
+        label: "يناير",
+        value: "1",
     },
     {
-        name: "فبراير",
-        value: "feb",
+        label: "فبراير",
+        value: "2",
     },
     {
-        name: "مارس",
-        value: "mar",
+        label: "مارس",
+        value: "3",
     },
     {
-        name: "ابريل",
-        value: "apr",
+        label: "ابريل",
+        value: "4",
     },
     {
-        name: "يونيو",
-        value: "june",
+        label: "مايو",
+        value: "5",
     },
     {
-        name: "يوليو",
-        value: "july",
+        label: "يونيو",
+        value: "6",
     },
     {
-        name: "اغسطس",
-        value: "aug",
+        label: "يوليو",
+        value: "7",
     },
     {
-        name: "سبتمبر",
-        value: "sep",
+        label: "اغسطس",
+        value: "8",
     },
     {
-        name: "اكتوبر",
-        value: "oct",
+        label: "سبتمبر",
+        value: "9",
     },
     {
-        name: "نوفمبر",
-        value: "nov",
+        label: "اكتوبر",
+        value: "10",
     },
     {
-        name: "ديسمبر",
-        value: "dec",
+        label: "نوفمبر",
+        value: "11",
+    },
+    {
+        label: "ديسمبر",
+        value: "12",
+    },
+]
+export const yearlyOptions = Array.from(Array(5)).map((el, index) => ({label: new Date().getFullYear() - index, value: new Date().getFullYear() - index}))
+export const sortOptions = [
+    {
+        label: "الاحدث",
+        value: "newest",
+    },
+    {
+        label: "الاقدم",
+        value: "oldest",
     },
 ]
 
-export const chartMonthes = ["ديسمبر", "نوفمبر", "اكتوبر", "سبتمبر",'اغسطس', 'يوليو', 'يونيو', 'ابريل', 'مارس', 'فبراير', 'يناير'];
+export const chartMonthesLabels = ["يناير", "فبراير", "مارس", "ابريل", "مايو", 'يونيو', 'يوليو', 'اغسطس', 'سبتمبر', 'اكتوبر', 'نوفمبر', 'ديسمبر'];
 
 export const asideLinks = [
     {
@@ -78,8 +89,10 @@ export const asideLinks = [
                 path: "/",
                 name: "لوحة التحكم",
                 icon: "solar:home-angle-outline",
+                permission: "عرض التقارير"
             },
-        ]
+        ],
+        permissions: ["عرض التقارير"]
     },
     {
         title: "المشاريع",
@@ -88,28 +101,34 @@ export const asideLinks = [
                 path: "/projects-list",
                 name: "قائمة المشاريع",
                 icon: "ph:folder-duotone",
+                permission: "عرض المشاريع"
             },
             {
-                path: "/project-add",
+                path: "/projects-add",
                 name: "اضافة مشروع جديد",
                 icon: "mi:folder-add",
+                permission: "إنشاء مشروع"
             },
-        ]
+        ],
+        permissions: ["إنشاء مشروع", "عرض المشاريع"]
     },
     {
         title: "المهام",
         links: [
             {
-                path: "/missions-list",
+                path: "/tasks-list",
                 name: "جميع المهام",
                 icon: "ph:file",
+                permission: "عرض المهام"
             },
             {
-                path: "/mission-add",
+                path: "/tasks-add",
                 name: "اضافة مهمة جديدة",
                 icon: "ant-design:file-add-outlined",
+                permission: "إنشاء مهمة"
             },
-        ]
+        ],
+        permissions: ["إنشاء مهمة", "عرض المهام"]
     },
     {
         title: "التقارير",
@@ -118,8 +137,10 @@ export const asideLinks = [
                 path: "/reports",
                 name: "التقارير",
                 icon: "ph:chart-bar-horizontal",
+                permission: "عرض التقارير"
             },
-        ]
+        ],
+        permissions: ["عرض التقارير"]
     },
     {
         title: "الموظفين",
@@ -128,33 +149,102 @@ export const asideLinks = [
                 path: "/employees-list",
                 name: "قائمة الموظفين",
                 icon: "ph:user-circle-light",
+                permission: "عرض الموظفين"
             },
             {
                 path: "/employees-add",
                 name: "اضافة موظف جديد",
                 icon: "ph:user-circle-plus-light",
+                permission: "إنشاء موظف"
             },
             {
-                path: "/employees-permission",
+                path: "/permissions",
                 name: "الصلاحيات",
                 icon: "ph:user-circle-plus-light",
+                permission: "عرض الأدوار"
             },
-
-        ]
+        ],
+        permissions: ["إنشاء موظف", "عرض الأدوار", "عرض الموظفين"]
     },
     {
-        title: "المشرفين",
+        title: "المقاولين",
         links: [
             {
                 path: "/supervisors-list",
-                name: "قائمة المشرفين",
+                name: "قائمة المقاولين",
                 icon: "ph:user-circle-light",
+                permission: "عرض المقاولين"
             },
             {
                 path: "/supervisors-add",
-                name: "اضافة مشرف جديد",
+                name: "اضافة مقاول جديد",
                 icon: "ph:user-circle-plus-light",
+                permission: "إنشاء مقاول"
             },
-        ]
+        ],
+        permissions: ["إنشاء مقاول", "عرض المقاولين"]
     },
 ]
+
+export const projectStatus = [
+    {
+        value: "منتهي",
+        label: "منتهي"
+    },
+    {
+        value: "ملغي",
+        label: "ملغي"
+    },
+    {
+        value: "قيد التنفيذ",
+        label: "قيد التنفيذ"
+    },
+    {
+        value: "معلق",
+        label: "معلق"
+    },
+]
+
+export const stagesOptions = [
+    {
+        value: "",
+        label: "الكل",
+    },
+    {
+        value: "مرحلة البناء",
+        label: "مرحلة البناء",
+    },
+    {
+        value: "مرحلة البنية التحتية",
+        label: "مرحلة البنية التحتية"
+    },
+    {
+        value: "مرحلة التشطيب والتسليم",
+        label: "مرحلة التشطيب والتسليم"
+    },
+]
+
+// export const permissions = [
+//     { "id": 1, "name": "عرض الأدوار" },
+//     { "id": 2, "name": "إنشاء دور" },
+//     { "id": 3, "name": "تعديل دور" },
+//     { "id": 4, "name": "حذف دور" },
+//     { "id": 5, "name": "عرض الموظفين" },
+//     { "id": 6, "name": "إنشاء موظف" },
+//     { "id": 7, "name": "تعديل موظف" },
+//     { "id": 8, "name": "حذف موظف" },
+//     { "id": 9, "name": "عرض المقاولين" },
+//     { "id": 10, "name": "إنشاء مقاول" },
+//     { "id": 11, "name": "تعديل مقاول" },
+//     { "id": 12, "name": "حذف مقاول" },
+//     { "id": 13, "name": "عرض المشاريع" },
+//     { "id": 14, "name": "إنشاء مشروع" },
+//     { "id": 15, "name": "تعديل مشروع" },
+//     { "id": 16, "name": "حذف مشروع" },
+//     { "id": 17, "name": "عرض المهام" },
+//     { "id": 18, "name": "إنشاء مهمة" },
+//     { "id": 19, "name": "تعديل مهمة" },
+//     { "id": 20, "name": "حذف مهمة" },
+//     { "id": 21, "name": "عرض التقارير" }
+// ]
+
