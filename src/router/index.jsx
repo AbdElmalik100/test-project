@@ -23,7 +23,7 @@ import Settings from "../pages/Settings.jsx";
 import Permissions from "../pages/Permissions.jsx";
 import TasksDetails from "../pages/Tasks/TasksDetails.jsx";
 import { useSelector } from "react-redux";
-import Error from "../error.jsx";
+import Error from "../Error.jsx";
 import { hasPermission } from "../utils/index.js";
 
 const AppRouter = () => {
