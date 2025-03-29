@@ -14,7 +14,7 @@ import Supervisors from "../pages/Supervisors/Supervisors.jsx";
 import SupervisorsAdd from "../pages/Supervisors/SupervisorsAdd.jsx";
 import Tasks from "../pages/Tasks/Tasks.jsx";
 import TasksAdd from "../pages/Tasks/TasksAdd.jsx";
-import Projects from "../pages/Projects/projects.jsx";
+import Projects from "../pages/Projects/Projects.jsx";
 import ProjectsAdd from "../pages/Projects/ProjectsAdd.jsx";
 import SupervisorsDetails from "../pages/Supervisors/SupervisorsDetails.jsx";
 import Reports from "../pages/Reports.jsx";
