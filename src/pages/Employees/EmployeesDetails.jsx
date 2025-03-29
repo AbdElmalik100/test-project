@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { deleteEmployee, getEmployee } from '../../store/slices/employeesSlice';
 import PersonalDetails from '../../components/EmployeesSections/PersonalDetails';
 import PermissionsDetails from '../../components/EmployeesSections/PermissionsDetails';
@@ -11,6 +11,7 @@ const EmployeesDetails = () => {
     const dispatch = useDispatch()
     const { employee } = useSelector(state => state.employees)
     const params = useParams()
+    const navigate = useNavigate()
 
     const handleDelete = async () => {
         const response = await dispatch(deleteEmployee(employee.id))
@@ -20,6 +21,13 @@ const EmployeesDetails = () => {
 
     useEffect(() => {
         dispatch(getEmployee(params.id))
+            .then(response => {
+                if (getEmployee.rejected.match(response)) navigate("/unauthroized", {
+                    state: {
+                        error: 401
+                    }
+                })
+            })
     }, [dispatch])
     return (
         employee
@@ -40,7 +48,6 @@ const EmployeesDetails = () => {
             </div>
             :
             <Loader className={"h-screen"} />
-
     )
 }
 
