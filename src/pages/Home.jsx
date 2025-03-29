@@ -1,4 +1,4 @@
-import Statistics from "../components/homeSections/Statistics"
+import Statistics from "../components/HomeSections/Statistics"
 import ProjectsChart from "../components/UI/ProjectsChart";
 import TasksChart from "../components/UI/TasksChart";
 import LatestNotifications from "../components/HomeSections/LatestNotifications";
